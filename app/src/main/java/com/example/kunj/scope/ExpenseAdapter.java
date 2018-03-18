@@ -53,6 +53,8 @@ public class ExpenseAdapter extends BaseAdapter {
 
         Expense expense  = expenses.get(i);
 
+        //Example
+
 
         String categoryString = expense.getCategory();
         //Toast.makeText(homePage,categoryString,Toast.LENGTH_LONG).show();

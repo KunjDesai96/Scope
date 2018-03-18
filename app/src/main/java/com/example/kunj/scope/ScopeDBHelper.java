@@ -21,7 +21,7 @@ public class ScopeDBHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_EXPENSE = "expense_table";
     public static final String TABLE_ATTENDANCE = "attendance_table";
-    public static final String TABLE_TRIP = "trip_table";
+
     public static final String COLUMN_ID= "ID";
     public static final String COLUMN_CATEGORY= "CATEGORY";
     public static final String COLUMN_DESCRIPTION= "DESCRIPTION";
@@ -86,6 +86,10 @@ public class ScopeDBHelper {
         return expenses;
     }
 
+    public int deleteExpense(Expense ex) {
+
+        return db.delete(TABLE_EXPENSE,COLUMN_DESCRIPTION+"=?",new String[]{ex.description});
+    }
 
 
     private  class ScopeOpenHelper extends SQLiteOpenHelper {

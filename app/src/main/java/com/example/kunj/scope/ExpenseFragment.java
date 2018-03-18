@@ -2,15 +2,18 @@ package com.example.kunj.scope;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,7 +30,7 @@ import java.util.Locale;
 /**
  * Created by kunj on 1/23/2018.
  */
-public class ExpenseFragment extends Fragment {
+public class ExpenseFragment extends Fragment implements AdapterView.OnItemLongClickListener {
 
     Dialog dialog;
     Spinner categorySpinner;
@@ -56,7 +59,7 @@ public class ExpenseFragment extends Fragment {
 
         expenseAdapter = new ExpenseAdapter((HomePage) getActivity(),expenses);
         expenselistview.setAdapter(expenseAdapter);
-
+        expenselistview.setOnItemLongClickListener(this);
         myCalendar = Calendar.getInstance();
 
 
@@ -165,5 +168,50 @@ public class ExpenseFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         dateEt.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+       final Expense ex = expenses.get(i);
+
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle("Delete Expense");
+        dialog.setMessage("Do you want to delete this entry?");
+
+
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                if(scopeDBHelper.deleteExpense(ex)==1)
+                {
+                    Toast.makeText(getContext(),"Expense Deleted",Toast.LENGTH_SHORT).show();
+                    expenseAdapter.delete(ex);
+                    expenseAdapter.notifyDataSetChanged();
+
+
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Couldn't delete this entry",Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        });
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+            }
+        });
+
+        dialog.show();
+
+        return false;
     }
 }

@@ -71,4 +71,9 @@ public class ExpenseAdapter extends BaseAdapter {
 
         expenses.add(expense);
     }
+
+    public void delete(Expense ex) {
+
+        expenses.remove(ex);
+    }
 }

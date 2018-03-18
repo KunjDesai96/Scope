@@ -10,7 +10,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.database.sqlite.SQLiteDatabase.openDatabase;
 import static com.example.kunj.scope.ScopeDBHelper.CREATE_TABLE;
+import static com.example.kunj.scope.ScopeDBHelper.DATABASE_NAME;
+import static com.example.kunj.scope.ScopeDBHelper.DATABASE_VERSION;
 
 
 /**
@@ -21,14 +24,22 @@ public class CustomScopeDBHelper {
 
 
     public Context context;
-    ScopeOpenHelper scopeOpenHelper;
     SQLiteDatabase db;
+   // ScopeOpenHelper scopeOpenHelper;
+
+    public CustomScopeDBHelper(Context context) {
+        this.context = context;
+     //   scopeOpenHelper = new ScopeOpenHelper(context);
+     //   db = scopeOpenHelper.getWritableDatabase();
+    }
 
 
     public static String query;
-    public static final String DATABASE_NAME = "scope.db";
-    public static final int DATABASE_VERSION = 1;
+    //public static final String DATABASE_NAME = "scope.db";
+    //public static final int DATABASE_VERSION = 1;
     String TABLE_NAME;
+
+
 
     public void getQuery(List<String> columnName, String tableName) {
         TABLE_NAME = tableName;
@@ -38,7 +49,7 @@ public class CustomScopeDBHelper {
         for (String str : columnName) {
             count++;
             if (sb.length() == 0) {
-                sb.append("create table " + tableName + "(id int AUTO_INCREMENT, ");
+                sb.append("create table " + TABLE_NAME + "(id integer AUTO_INCREMENT, ");
             }
             if (count != (i)) {
                 sb.append(str + " " + "text,");
@@ -49,7 +60,9 @@ public class CustomScopeDBHelper {
 
         query = (sb.toString());
 
-        ScopeOpenHelper scopeOpenHelper= new ScopeOpenHelper(context);
+        System.out.println(query);
+
+
     }
 
     void addEntry(List<String> data,GenericDTO genericDTO)
@@ -80,27 +93,23 @@ public class CustomScopeDBHelper {
 
     }
 
-
-
-
-
-
-    private class ScopeOpenHelper extends SQLiteOpenHelper
-    {
+    private  class ScopeOpenHelper extends SQLiteOpenHelper {
 
         public ScopeOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
         @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        public void onCreate(SQLiteDatabase db) {
 
             db.execSQL(query);
-
+            //System.out.print(CREATE_TABLE);
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            if(newVersion>oldVersion)
+            onCreate(db);
 
         }
     }

@@ -52,10 +52,6 @@ public class ExpenseAdapter extends BaseAdapter {
         ImageView categoryImage= (ImageView) view.findViewById(R.id.categoryImage);
 
         Expense expense  = expenses.get(i);
-
-        //Example
-
-
         String categoryString = expense.getCategory();
         //Toast.makeText(homePage,categoryString,Toast.LENGTH_LONG).show();
         String imagefile = categoryString.toLowerCase();
@@ -74,8 +70,8 @@ public class ExpenseAdapter extends BaseAdapter {
         expenses.add(expense);
     }
 
-    public void delete(Expense ex) {
+    public void delete(Expense expense) {
 
-        expenses.remove(ex);
+        expenses.remove(expense);
     }
 }

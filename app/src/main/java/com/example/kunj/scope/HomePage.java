@@ -50,7 +50,7 @@ public class HomePage extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_home_page,new ExpenseFragment()).commit();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }

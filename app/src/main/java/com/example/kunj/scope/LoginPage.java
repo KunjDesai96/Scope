@@ -51,7 +51,7 @@ public class LoginPage extends AppCompatActivity {
 
 
 
-        scopeDBHelper = new ScopeDBHelper(this);
+       // scopeDBHelper = new ScopeDBHelper(this);
 
 
         loginbtn.setOnClickListener(new View.OnClickListener() {

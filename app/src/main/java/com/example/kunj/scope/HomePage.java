@@ -1,13 +1,6 @@
 package com.example.kunj.scope;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Intent;
-
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,23 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -108,7 +84,7 @@ public class HomePage extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home_page,new CustomizeFragment()).commit();
 
         } else if (id == R.id.nav_trip) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home_page,new TripFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home_page,new TripsFragment()).commit();
 
         } else if (id == R.id.nav_attendance) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_home_page,new AttendanceFragment()).commit();

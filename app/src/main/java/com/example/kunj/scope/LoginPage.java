@@ -34,7 +34,7 @@ public class LoginPage extends AppCompatActivity {
     CheckBox checkBox;
 
     SharedPreferences preferences;
-    ScopeDBHelper scopeDBHelper;
+    //ScopeDBHelper scopeDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

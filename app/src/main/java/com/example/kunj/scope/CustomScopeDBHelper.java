@@ -24,22 +24,24 @@ public class CustomScopeDBHelper {
 
     public Context context;
     public static SQLiteDatabase db;
-    CustomScopeOpenHelper scopeOpenHelper;
+
+    CustomScopeOpenHelper customScopeOpenHelper;
+
     public CustomScopeDBHelper(Context context) {
         this.context = context;
-        scopeOpenHelper = new CustomScopeOpenHelper(context);
-        db = scopeOpenHelper.getWritableDatabase();
+        customScopeOpenHelper = new CustomScopeOpenHelper(context);
+        db = customScopeOpenHelper.getWritableDatabase();
 
     }
 
 
-    public static String query;
+
     public static final String DATABASE_NAME = "scope.db";
     public static final int DATABASE_VERSION = 2;
     String TABLE_NAME;
-    public String COLUMN_ID=" ID ";
 
 
+    public String query;
     public void getQuery(List<String> columnName, String tableName) {
         TABLE_NAME = tableName;
         int i = columnName.size();
@@ -48,7 +50,7 @@ public class CustomScopeDBHelper {
         for (String str : columnName) {
             count++;
             if (sb.length() == 0) {
-                sb.append("create table if not exists " + TABLE_NAME + "(id integer AUTO_INCREMENT, ");
+                sb.append("create table  " + TABLE_NAME + "(id integer AUTO_INCREMENT, ");
             }
             if (count != (i)) {
                 sb.append(str + " " + "text,");
@@ -57,11 +59,9 @@ public class CustomScopeDBHelper {
             }
         }
 
-        query = (sb.toString());
+        //query = "create table custom_expense ( col1 text, col2 text, col3 text, col4 text);";
 
        // System.out.println(query);
-
-
     }
 
     void addEntry(List<String> data,GenericDTO genericDTO)
@@ -75,12 +75,9 @@ public class CustomScopeDBHelper {
         ContentValues values = new ContentValues();
         for(int i =0; i<size;i++)
         {
-            //Toast.makeText(context,data.get(i),Toast.LENGTH_SHORT).show();
            values.put(cols.get(i).toString(),data.get(i));
         }
-       // db = openDatabase(, null, SQLiteDatabase.OPEN_READWRITE);
-        //db = SQLiteDatabase.openDatabase("/data/data/com.example.kunj.scope/databasesscope.db", null,SQLiteDatabase.OPEN_READWRITE);
-        long res = db.insert(TABLE_NAME,null,values);
+       long res = db.insert(TABLE_NAME,null,values);
         if(res == -1)
         {
             Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
@@ -103,6 +100,7 @@ public class CustomScopeDBHelper {
         @Override
         public void onCreate(SQLiteDatabase db) {
          //  db = SQLiteDatabase.openDatabase(DATABASE_NAME, null,SQLiteDatabase.OPEN_READWRITE);
+            query = "create table custom_expense ( col1 text, col2 text, col3 text, col4 text);";
             db.execSQL(query);
             //System.out.print(CREATE_TABLE);
 
@@ -110,7 +108,6 @@ public class CustomScopeDBHelper {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if(newVersion>oldVersion)
                 onCreate(db);
 
         }

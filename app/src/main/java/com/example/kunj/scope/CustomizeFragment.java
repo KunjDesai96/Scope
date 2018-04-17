@@ -32,7 +32,6 @@ import static com.example.kunj.scope.R.id.textinput_counter;
  * Created by kunj on 1/23/2018.
  */
 public class CustomizeFragment extends Fragment {
-    Dialog dialog;
     Button addbtn;
     EditText data1,data2,data3,data4;
     ListView customlistview;
